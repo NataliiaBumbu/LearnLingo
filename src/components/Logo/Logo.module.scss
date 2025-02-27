@@ -1,0 +1,21 @@
+.logoLink {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 8px;
+
+	.logoText {
+		font-size: fluid(20, 14);
+		font-style: normal;
+		font-weight: 500;
+		line-height: 1.2;
+		letter-spacing: -0.02em;
+
+	}
+}
+
+.logoAbsolute {
+	position: absolute;
+	top: 1rem;
+	left: 1rem;
+}
