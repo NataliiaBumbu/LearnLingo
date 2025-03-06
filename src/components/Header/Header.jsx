@@ -1,23 +1,31 @@
+import styles from "./Header.module.scss";
 import Logo from "../Logo/Logo";
+import logInIcon1x from "../../assets/log-in-01.png"; 
+import logInIcon2x from "../../assets/log-in-01@2x.png"; 
 
 const Header = () => {
   return (
-    <header className="flex justify-between items-center p-4">
-      {/* Логотип */}
-      <Logo />
+    <header className={styles.header}>
+      <div className={styles.logoContainer}>
+        <Logo />
+      </div>
 
-      {/* Навігація */}
-      <nav>
-        <ul className="flex gap-4">
-          <li><a href="#" className="text-gray-700">Home</a></li>
-          <li><a href="#" className="text-gray-700">Teachers</a></li>
-        </ul>
+      <nav className={styles.nav}>
+        <a href="#" className={styles.navLink}>Home</a>
+        <a href="#" className={styles.navLink}>Teachers</a>
       </nav>
 
-      {/* Кнопки */}
-      <div>
-        <button className="mr-2">Log in</button>
-        <button className="bg-black text-white px-4 py-2 rounded">Registration</button>
+      <div className={styles.buttonContainer}>
+        <button className={styles.loginButton}>
+          <img 
+            src={logInIcon1x} 
+            srcSet={`${logInIcon1x} 1x, ${logInIcon2x} 2x`} 
+            alt="Log in" 
+            className={styles.icon} 
+          />
+          Log in
+        </button>
+        <button className={styles.registerButton}>Registration</button>
       </div>
     </header>
   );

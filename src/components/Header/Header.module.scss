@@ -1,0 +1,90 @@
+.header {
+    max-width: 1440px;
+    height: 48px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 128px;
+    background-color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+  }
+  
+  /* Логотип */
+  .logoContainer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  /* Навігація */
+  .nav {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-grow: 1; // Центрує навігацію
+  }
+  
+  .navLink {
+    font-size: 16px;
+    font-weight: 500;
+    color: #121417;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  
+  .navLink:hover {
+    color: #000;
+  }
+  
+  /* Контейнер кнопок */
+  .buttonContainer {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  
+  /* Кнопка Log in */
+  .loginButton {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 500;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #121417;
+    transition: color 0.3s;
+  }
+  
+  .loginButton:hover {
+    color: #000;
+  }
+  
+  /* Іконка Log in */
+  .icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+  }
+  
+  /* Кнопка Registration */
+  .registerButton {
+    background-color: black;
+    color: white;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 8px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .registerButton:hover {
+    background-color: #333;
+  }
+  

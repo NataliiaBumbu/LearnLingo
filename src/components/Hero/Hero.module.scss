@@ -1,0 +1,58 @@
+.hero {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 80px 128px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.content {
+  max-width: 550px;
+}
+
+.title {
+  font-size: 44px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #121417;
+  margin-bottom: 20px;
+}
+
+.highlight {
+  font-style: italic;
+  color: #F4A261;
+}
+
+.description {
+  font-size: 18px;
+  line-height: 1.5;
+  color: #4A4A4A;
+  margin-bottom: 24px;
+}
+
+.ctaButton {
+  background-color: #F4A261;
+  color: white;
+  font-size: 18px;
+  font-weight: 500;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.ctaButton:hover {
+  background-color: #E68A4F;
+}
+
+.imageContainer {
+  flex-shrink: 0;
+}
+
+.heroImage {
+  width: 400px;
+  height: auto;
+}
