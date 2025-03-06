@@ -33,6 +33,7 @@ const Header = () => {
       <nav className={styles.nav}>
         <a href="#" className={styles.navLink}>Home</a>
         <a href="#" className={styles.navLink}>Teachers</a>
+        <a href="#" className={styles.navLink}>Favorites</a>
       </nav>
 
       <div className={styles.buttonContainer}>
