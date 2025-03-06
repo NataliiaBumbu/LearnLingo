@@ -25,6 +25,7 @@ const Header = () => {
 
   return (
     <header className={styles.header}>
+      
       <div className={styles.logoContainer}>
         <Logo />
       </div>
@@ -48,6 +49,8 @@ const Header = () => {
           Registration
         </button>
       </div>
+    
+      
 
       {/* Модальні вікна */}
       <LoginModal isOpen={modal === "login"} onClose={() => setModal(null)} />

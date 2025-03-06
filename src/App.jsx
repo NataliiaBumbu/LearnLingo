@@ -1,31 +1,8 @@
 import { Route, Routes } from "react-router-dom";
+import { useEffect } from "react";
 import './App.scss';
 import HomePage from "./pages/HomePage/HomePage";
 import { addTeachersToDatabase, getTeachersFromDatabase } from "./services/firebase";
-import { useEffect } from "react";
-import teachers from "./data/teachers.json";
-
-const addTeachersToDatabase = async () => {
-  try {
-    await set(ref(database, "teachers"), teachers);
-    console.log("Teachers added successfully!");
-  } catch (error) {
-    console.error("Error adding teachers:", error);
-  }
-};
-
-const getTeachersFromDatabase = async () => {
-  try {
-    const snapshot = await get(ref(database, "teachers"));
-    if (snapshot.exists()) {
-      console.log("Teachers from DB:", snapshot.val());
-    } else {
-      console.log("No data available");
-    }
-  } catch (error) {
-    console.error("Error fetching teachers:", error);
-  }
-};
 
 function App() {
   useEffect(() => {
@@ -33,16 +10,12 @@ function App() {
     getTeachersFromDatabase();
   }, []);
 
-
-
   return (
     <Routes>
-    <Route path="/" element={<HomePage />} />
-    <Route path="/teachers" element={<TeachersPage />} />
+      <Route path="/" element={<HomePage />} />
+     
     </Routes>
-      
-
-  )
+  );
 }
 
-export default App
+export default App;

@@ -1,18 +1,19 @@
 .header {
-    max-width: 1440px;
+    max-width: 1184px;
     height: 48px;
-    margin: 0 auto;
+    margin: 20px auto;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 128px;
+    padding: 20 128px;
     background-color: white;
-    position: fixed;
+    position: static;
     top: 0;
     left: 0;
     right: 0;
     z-index: 1000;
   }
+  
   
   /* Логотип */
   .logoContainer {
@@ -38,7 +39,8 @@
   }
   
   .navLink:hover {
-    color: #000;
+    color: #F4C550;
+    ;
   }
   
   /* Контейнер кнопок */
@@ -62,7 +64,8 @@
   }
   
   .loginButton:hover {
-    color: #000;
+    color: #F4C550;
+    ;
   }
   
   /* Іконка Log in */
@@ -85,6 +88,7 @@
   }
   
   .registerButton:hover {
-    background-color: #333;
+    background-color: #F4C550;
+    ;
   }
   
