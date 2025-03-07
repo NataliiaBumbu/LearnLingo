@@ -5,6 +5,7 @@ import logInIcon1x from "../../assets/log-in-01.png";
 import logInIcon2x from "../../assets/log-in-01@2x.png";
 import RegistrationModal from "../Modal/RegistrationModal/RegistrationModal";
 import LoginModal from "../Modal/LoginModal/LoginModal";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const [modal, setModal] = useState(null); // 'login' | 'register' | null
@@ -31,10 +32,10 @@ const Header = () => {
       </div>
 
       <nav className={styles.nav}>
-        <a href="#" className={styles.navLink}>Home</a>
-        <a href="#" className={styles.navLink}>Teachers</a>
-        <a href="#" className={styles.navLink}>Favorites</a>
-      </nav>
+      <Link to="/" className={styles.navLink}>Home</Link>
+      <Link to="/teachers" className={styles.navLink}>Teachers</Link>
+      <Link to="/favorites" className={styles.navLink}>Favorites</Link>
+    </nav>
 
       <div className={styles.buttonContainer}>
         <button className={styles.loginButton} onClick={() => toggleModal("login")}>

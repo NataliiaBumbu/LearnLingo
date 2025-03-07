@@ -1,0 +1,110 @@
+.card {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 16px;
+    width: 1000px;
+  }
+  
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+   
+  }
+  
+  .avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+  }
+  
+  .headerContent {
+    flex-grow: 1;
+  }
+  
+  .favoriteBtn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+  }
+  
+  .details {
+    padding-top: 12px;
+  }
+  
+  .levels {
+    margin-top: 12px;
+  }
+  
+  .level {
+    background-color: #f1f1f1;
+    border-radius: 16px;
+    padding: 6px 12px;
+    margin-right: 8px;
+    display: inline-block;
+  }
+  
+  .selectedLevel {
+    background-color: #ffbb33;
+    color: #fff;
+  }
+  
+  .bookButton {
+    width: 100%;
+    background-color: #ffbb33;
+    color: #333;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    padding: 10px;
+    border: none;
+    margin-top: 12px;
+  }
+  
+  .bookButton:hover {
+    background-color: #e0a000;
+  }
+  
+  .readMore {
+    background: none;
+    color: #1976d2;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin-top: 10px;
+  }
+  
+  .reviews {
+    margin-top: 12px;
+  }
+  
+  .review {
+    padding: 8px 0;
+    border-bottom: 1px solid #eaeaea;
+  }
+  
+  .reviewName {
+    font-weight: bold;
+  }
+  
+  .reviewRating {
+    font-size: 14px;
+    color: #666;
+  }
+  .favoriteBtn {
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    transition: transform 0.2s;
+  
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+  
+  
