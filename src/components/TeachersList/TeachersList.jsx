@@ -10,6 +10,7 @@ const TeachersList = ({ filters }) => {
   useEffect(() => {
     const fetchTeachers = async () => {
       const data = await getTeachers();
+      console.log("📌 Всі викладачі:", data); // Лог для перевірки
       setTeachers(data);
     };
 
@@ -18,35 +19,32 @@ const TeachersList = ({ filters }) => {
 
   const filteredTeachers = useMemo(() => {
     return teachers.filter((teacher) => {
+      if (!teacher) return false;
       const maxPrice = parseInt(filters.price, 10);
       const matchesPrice = teacher.price_per_hour <= maxPrice;
       const matchesLevel = filters.level
-        ? teacher.levels.includes(filters.level)
+        ? teacher.levels?.includes(filters.level)
         : true;
       const matchesLanguage = filters.language
-        ? teacher.languages.includes(filters.language)
+        ? teacher.languages?.includes(filters.language)
         : true;
 
       return matchesPrice && matchesLevel && matchesLanguage;
     });
   }, [teachers, filters]);
 
-  const handleLoadMore = () => setVisibleCount((prev) => prev + 4);
-
   return (
     <div className={styles.container}>
-      {filteredTeachers.slice(0, visibleCount).map((teacher) => (
-        <TeacherCard
-          key={teacher.id || teacher.name}
-          teacher={teacher}
-          selectedLevel={filters.level}
-        />
-      ))}
-
-      {visibleCount < filteredTeachers.length && (
-        <button className={styles.loadMore} onClick={handleLoadMore}>
-          Load more
-        </button>
+      {filteredTeachers.length > 0 ? (
+        filteredTeachers.slice(0, visibleCount).map((teacher) => (
+          <TeacherCard
+            key={teacher.id}
+            teacher={teacher}
+            selectedLevel={filters.level}
+          />
+        ))
+      ) : (
+        <p>❌ Викладачів не знайдено</p>
       )}
     </div>
   );

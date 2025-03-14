@@ -1,21 +1,61 @@
 import { useState, useEffect } from "react";
-import { getFavoriteTeachers } from "../../services/firebase";
+import { auth, getFavoriteTeachers } from "../../services/firebase";
 import TeacherCard from "../../components/TeacherCard/TeacherCard";
+import styles from "./FavoritesPage.module.scss";
 
 const FavoritesPage = () => {
-  const [favorites, setFavorites] = useState([]);
+  const [user, setUser] = useState(null);
+  const [favoriteTeachers, setFavoriteTeachers] = useState([]);
 
   useEffect(() => {
-    getFavoriteTeachers().then(setFavorites);
+    const unsubscribe = auth.onAuthStateChanged((authUser) => {
+      setUser(authUser);
+    });
+
+    return () => unsubscribe();
   }, []);
 
+  useEffect(() => {
+    const fetchFavorites = async () => {
+      if (user) {
+        const favorites = await getFavoriteTeachers(user.uid);
+        console.log("📌 Отримані улюблені викладачі:", favorites);
+        
+        // Оновлюємо список викладачів із гарантованим experience
+        const updatedFavorites = favorites.map((teacher) => ({
+          ...teacher,
+          experience:
+            Array.isArray(teacher.experience)
+              ? teacher.experience.join(" ")
+              : teacher.experience || "No experience provided",
+        }));
+
+        setFavoriteTeachers(updatedFavorites);
+      }
+    };
+
+    fetchFavorites();
+  }, [user]);
+
+  const handleFavoriteUpdate = async () => {
+    if (user) {
+      const favorites = await getFavoriteTeachers(user.uid);
+      setFavoriteTeachers(favorites);
+    }
+  };
+
   return (
-    <div className={styles.page}>
-      <h2>Обрані викладачі</h2>
-      {favorites.length > 0 ? (
-        favorites.map((teacher) => <TeacherCard key={teacher.id} teacher={teacher} />)
+    <div className={styles.container}>
+      {favoriteTeachers.length > 0 ? (
+        favoriteTeachers.map((teacher) => (
+          <TeacherCard
+            key={teacher.id}
+            teacher={teacher} // Передаємо дані, які вже відформатовані
+            onFavoriteUpdate={handleFavoriteUpdate}
+          />
+        ))
       ) : (
-        <p>У вас поки немає обраних викладачів.</p>
+        <p>❌ У вас поки що немає обраних викладачів.</p>
       )}
     </div>
   );
