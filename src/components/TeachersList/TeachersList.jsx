@@ -1,17 +1,19 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import styles from "./TeachersList.module.scss";
 import TeacherCard from "../TeacherCard/TeacherCard";
 import { getTeachers } from "../../services/firebase";
 
-const TeachersList = ({ filters }) => {
+const TeachersList = ({ filters, visibleCount, onLoadMore }) => {
   const [teachers, setTeachers] = useState([]);
-  const [visibleCount, setVisibleCount] = useState(4);
+  const [loading, setLoading] = useState(false);
+  const bottomRef = useRef(null);
 
   useEffect(() => {
     const fetchTeachers = async () => {
+      setLoading(true);
       const data = await getTeachers();
-      console.log("📌 Всі викладачі:", data); // Лог для перевірки
       setTeachers(data);
+      setLoading(false);
     };
 
     fetchTeachers();
@@ -33,19 +35,32 @@ const TeachersList = ({ filters }) => {
     });
   }, [teachers, filters]);
 
+  const handleLoadMore = () => {
+    onLoadMore();
+    setTimeout(() => {
+      bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+    }, 100);
+  };
+
   return (
     <div className={styles.container}>
-      {filteredTeachers.length > 0 ? (
-        filteredTeachers.slice(0, visibleCount).map((teacher) => (
-          <TeacherCard
-            key={teacher.id}
-            teacher={teacher}
-            selectedLevel={filters.level}
-          />
-        ))
-      ) : (
-        <p>❌ Викладачів не знайдено</p>
+      {filteredTeachers.slice(0, visibleCount).map((teacher) => (
+        <TeacherCard
+          key={teacher.id}
+          teacher={teacher}
+          selectedLevel={filters.level}
+        />
+      ))}
+
+      {loading && <p>Loading...</p>}
+
+      {!loading && visibleCount < filteredTeachers.length && (
+        <button className={styles.loadMore} onClick={handleLoadMore}>
+          Load More
+        </button>
       )}
+
+      <div ref={bottomRef} style={{ width: '100%', height: '1px' }} />
     </div>
   );
 };

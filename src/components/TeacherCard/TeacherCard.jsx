@@ -1,15 +1,15 @@
 import { useState, useEffect } from "react";
 import { auth, isFavorite, toggleFavorite } from "../../services/firebase";
 import TeacherCardHeader from "./TeacherCardHeader/TeacherCardHeader";
- // Імпортуємо модальне вікно
+import Modal from "../TeacherCard/Modal/Modal";
 import styles from "./TeacherCard.module.scss";
-import Modal from "./Modal/Modal";
+import heartIcon from "../../assets/like-heart.svg";
 
 const TeacherCard = ({ teacher, selectedLevel, onFavoriteUpdate }) => {
   const [user, setUser] = useState(null);
   const [favorite, setFavorite] = useState(false);
   const [expanded, setExpanded] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false); // Стан для модального вікна
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
@@ -44,6 +44,9 @@ const TeacherCard = ({ teacher, selectedLevel, onFavoriteUpdate }) => {
     }
   };
 
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
   return (
     <div className={styles.card}>
       <div className={styles.header}>
@@ -63,18 +66,47 @@ const TeacherCard = ({ teacher, selectedLevel, onFavoriteUpdate }) => {
           />
         </div>
         <button className={styles.favoriteBtn} onClick={handleFavoriteClick}>
-          {favorite ? "❤️" : "🤍"}
+          <img
+            src={heartIcon}
+            alt="Like Heart"
+            className={`${styles.heartIcon} ${favorite ? styles.filled : ""}`}
+          />
         </button>
       </div>
 
       <div className={styles.details}>
-        <p><strong>Speaks:</strong> {Array.isArray(teacher.languages) ? teacher.languages.join(", ") : "Unknown"}</p>
-        <p><strong>Lesson Info:</strong> {teacher.lesson_info || "No info available"}</p>
-        <p><strong>Conditions:</strong> {Array.isArray(teacher.conditions) ? teacher.conditions.join(" ") : "No conditions provided"}</p>
-
+        <p>
+          Speaks: <strong className={styles.underlinedText}>{Array.isArray(teacher.languages) ? teacher.languages.join(", ") : "Unknown"}</strong>
+        </p>
+        <p>
+          Lesson Info: <strong>{teacher.lesson_info || "No info available"}</strong>
+        </p>
+        <p>
+          Conditions: <strong>{Array.isArray(teacher.conditions) ? teacher.conditions.join(" ") : "No conditions provided"}</strong>
+        </p>
         <button className={styles.readMore} onClick={() => setExpanded((prev) => !prev)}>
-          {expanded ? "Hide details" : "Read more"}
+          {expanded ? "" : "Read more"}
         </button>
+
+        {expanded && (
+          <div className={styles.extraDetails}>
+            <p>{teacher.experience ? (Array.isArray(teacher.experience) ? teacher.experience.join(" ") : teacher.experience) : "No experience provided"}</p>
+
+            <div className={styles.reviews}>
+              {teacher.reviews && teacher.reviews.length > 0 ? (
+                teacher.reviews.map((review, index) => (
+                  <div key={index} className={styles.review}>
+                    <p className={styles.reviewName}><strong>{review.reviewer_name}</strong></p>
+                    <p className={styles.reviewRating}>⭐ {review.reviewer_rating}</p>
+                    <p className={styles.reviewText}><strong>{review.comment}</strong></p>
+                  </div>
+                ))
+              ) : (
+                <p>No reviews available</p>
+              )}
+            </div>
+          </div>
+        )}
 
         <div className={styles.levels}>
           {teacher.levels?.length > 0 ? (
@@ -88,12 +120,14 @@ const TeacherCard = ({ teacher, selectedLevel, onFavoriteUpdate }) => {
           )}
         </div>
 
-        <button className={styles.bookButton} onClick={() => setIsModalOpen(true)}>
-          Book trial lesson
-        </button>
+        {expanded && (
+          <button className={styles.bookButton} onClick={openModal}>
+            Book trial lesson
+          </button>
+        )}
       </div>
 
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} teacher={teacher} />
+      <Modal isOpen={isModalOpen} onClose={closeModal} teacher={teacher} />
     </div>
   );
 };

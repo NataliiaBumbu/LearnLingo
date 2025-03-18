@@ -5,6 +5,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom"; // ✅ Додано для навігації
 import { registerUser } from "../../../services/authService";
 import styles from "./RegistrationModal.module.scss";
+import Icon1 from "../../../assets/not-visible-interface.svg";
+import Icon2 from "../../../assets/eye-visible-outlined.svg";
 
 // Валідація форми
 const schema = yup.object().shape({
@@ -25,8 +27,7 @@ const RegistrationModal = ({ isOpen, onClose }) => {
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
         <button className={styles.close} onClick={onClose}>&times;</button>
         <h2 className={styles.title}>Registration</h2>
-        <p className={styles.subtitle}>
-          Thank you for your interest in our platform! Please provide us with the following information.
+        <p className={styles.subtitle}>Thank you for your interest in our platform! In order to register, we need some information. Please provide us with the following information
         </p>
         <form onSubmit={handleSubmit(async (data) => {
           try {
@@ -37,24 +38,26 @@ const RegistrationModal = ({ isOpen, onClose }) => {
             console.error("Registration error:", error.message);
           }
         })}>
-          <input type="text" placeholder="Name" {...register("name")} className={styles.input} />
-          <p className={styles.error}>{errors.name?.message}</p>
+                    <p className={styles.error}>{errors.name?.message}</p>
 
-          <input type="email" placeholder="Email" {...register("email")} className={styles.input} />
+          <input type="text" placeholder="Name" {...register("name")} className={styles.input} />
           <p className={styles.error}>{errors.email?.message}</p>
+          <input type="email" placeholder="Email" {...register("email")} className={styles.input} />
 
           <div className={styles.passwordContainer}>
+          <p className={styles.error}>{errors.password?.message}</p>
+  
             <input
               type={showPassword ? "text" : "password"}
               placeholder="Password"
               {...register("password")}
               className={styles.input}
             />
-            <span className={styles.eyeIcon} onClick={() => setShowPassword(!showPassword)}>
-              {showPassword ? "👁️" : "🙈"}
-            </span>
+<span className={styles.eyeIcon} onClick={() => setShowPassword(!showPassword)}>
+  <img src={showPassword ? Icon2 : Icon1} alt="Toggle password visibility" />
+</span>
+
           </div>
-          <p className={styles.error}>{errors.password?.message}</p>
 
           <button type="submit" className={styles.button}>Sign Up</button>
         </form>

@@ -11,7 +11,8 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    min-width: 160px; /* Фіксована ширина блоку */
+    min-width: 160px;
+    padding-left: 25px; /* Фіксована ширина блоку */
   }
   
   .languagesTitle {

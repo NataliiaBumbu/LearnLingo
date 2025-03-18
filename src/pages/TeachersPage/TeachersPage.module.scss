@@ -1,0 +1,21 @@
+.pageContainer {
+    position: relative;
+  }
+  
+  .headerContainer {
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgb(246, 245, 244);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 10; // збільшено для гарантії, що контент під низ не заїде
+  }
+  
+  .contentContainer {
+    padding-top: 220px; // Спробуй саме це значення, якщо шапка висока (Header + Filters)
+    overflow-y: visible;
+    position: relative;
+    z-index: 1; // переконайся, що він менший ніж у headerContainer
+  }
+  

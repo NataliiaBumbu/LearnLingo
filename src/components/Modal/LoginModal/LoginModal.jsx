@@ -49,11 +49,13 @@ const LoginModal = ({ isOpen, onClose }) => {
           Welcome back! Please enter your credentials to access your account and continue your search for a teacher.
         </p>
         <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+        {errors.email && <p className={styles.error}>{errors.email.message}</p>}
+
           <input type="email" placeholder="Email" {...register("email")} className={styles.input} />
-          {errors.email && <p className={styles.error}>{errors.email.message}</p>}
+
+          {errors.password && <p className={styles.error}>{errors.password.message}</p>}
 
           <input type="password" placeholder="Password" {...register("password")} className={styles.input} />
-          {errors.password && <p className={styles.error}>{errors.password.message}</p>}
 
           <button type="submit" className={styles.button}>Log In</button>
         </form>

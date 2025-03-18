@@ -3,5 +3,22 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    background: rgb(246, 245, 244);
+    
+  }
+  
+  .loadMore {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #f4c550;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .loadMore:hover {
+    background-color: #e0b240;
   }
   

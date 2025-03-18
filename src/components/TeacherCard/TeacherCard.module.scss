@@ -8,6 +8,7 @@
   padding: 16px 48px;
   margin-top: 10px;
   
+  
   }
   
   .header {
@@ -37,6 +38,7 @@
   
   .details {
     padding-top: 12px;
+    padding-left: 140px;
   }
   
   .levels {
@@ -44,43 +46,52 @@
   }
   
   .level {
-    background-color: #f1f1f1;
-    border-radius: 16px;
+    border: 1px solid #8A8A89;
+    border-radius: 35px;
     padding: 6px 12px;
     margin-right: 8px;
     display: inline-block;
   }
   
   .selectedLevel {
-    background-color: #ffbb33;
-    color: #fff;
+    background-color: #f4c550;
+    color: #121417;
+    border: none;
   }
   
   .bookButton {
     width: 100%;
-    background-color: #ffbb33;
-    color: #333;
-    font-size: 16px;
-    border-radius: 8px;
+    background-color: #f4c550;
+    color: #121417;
+    font-size: 18px;
+    border-radius: 12px;
+    font-weight: 700px;
     cursor: pointer;
     padding: 10px;
     border: none;
-    margin-top: 12px;
+    margin-top: 32px;
+    margin-bottom: 16px;
+    width: 232px;
+    height: 60px;
+
   }
   
   .bookButton:hover {
-    background-color: #e0a000;
+    background-color: #f4c550;
   }
   
   .readMore {
     background: none;
-    color: #1976d2;
+    color: #121417;
     border: none;
-    cursor: pointer;
+    cursor: poir;
     padding: 0;
     margin-top: 10px;
+    text-decoration: underline;
   }
-  
+.underlinedText {
+  text-decoration: underline;
+}
   .reviews {
     margin-top: 12px;
   }
@@ -92,6 +103,7 @@
   
   .reviewName {
     font-weight: bold;
+    color: #8A8A89;
   }
   
   .reviewRating {
@@ -110,4 +122,23 @@
     }
   }
   
-  
+  .favoriteBtn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.heartIcon {
+    width: 24px; /* або будь-який інший розмір */
+    height: 24px;
+    transition: filter 0.3s ease-in-out;
+}
+
+/* При активному стані змінюємо колір */
+.filled {
+  filter: brightness(0) saturate(100%) invert(69%) sepia(92%) saturate(620%) hue-rotate(5deg) brightness(99%) contrast(99%);
+}
