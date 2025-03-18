@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import Filters from "../../components/Filters/Filters";
 import TeachersList from "../../components/TeachersList/TeachersList";
+import Header from "../../components/Header/Header";
 
 const TeachersPage = () => {
   const [filters, setFilters] = useState({
@@ -16,6 +17,7 @@ const TeachersPage = () => {
 
   return (
     <div>
+      <Header />
       <Filters onFilterChange={handleFilterChange} />
       <TeachersList filters={filters} />
     </div>

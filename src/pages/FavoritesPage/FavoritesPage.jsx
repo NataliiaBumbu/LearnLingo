@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { auth, getFavoriteTeachers } from "../../services/firebase";
 import TeacherCard from "../../components/TeacherCard/TeacherCard";
 import styles from "./FavoritesPage.module.scss";
+import Header from "../../components/Header/Header";
 
 const FavoritesPage = () => {
   const [user, setUser] = useState(null);
@@ -45,7 +46,9 @@ const FavoritesPage = () => {
   };
 
   return (
+    
     <div className={styles.container}>
+      <Header />
       {favoriteTeachers.length > 0 ? (
         favoriteTeachers.map((teacher) => (
           <TeacherCard

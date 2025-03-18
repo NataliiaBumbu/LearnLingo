@@ -1,12 +1,15 @@
 import { useState, useEffect } from "react";
 import { auth, isFavorite, toggleFavorite } from "../../services/firebase";
 import TeacherCardHeader from "./TeacherCardHeader/TeacherCardHeader";
+ // Імпортуємо модальне вікно
 import styles from "./TeacherCard.module.scss";
+import Modal from "./Modal/Modal";
 
 const TeacherCard = ({ teacher, selectedLevel, onFavoriteUpdate }) => {
   const [user, setUser] = useState(null);
   const [favorite, setFavorite] = useState(false);
   const [expanded, setExpanded] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false); // Стан для модального вікна
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
@@ -73,27 +76,6 @@ const TeacherCard = ({ teacher, selectedLevel, onFavoriteUpdate }) => {
           {expanded ? "Hide details" : "Read more"}
         </button>
 
-        {expanded && (
-          <div className={styles.extraDetails}>
-            <p> {teacher.experience ? (Array.isArray(teacher.experience) ? teacher.experience.join(" ") : teacher.experience) : "No experience provided"}</p>
-
-            <div className={styles.reviews}>
-    
-              {teacher.reviews && teacher.reviews.length > 0 ? (
-                teacher.reviews.map((review, index) => (
-                  <div key={index} className={styles.review}>
-                    <p className={styles.reviewName}><strong>{review.reviewer_name}</strong></p>
-                    <p className={styles.reviewText}>{review.comment}</p>
-                    <p className={styles.reviewRating}>⭐ {review.reviewer_rating}</p>
-                  </div>
-                ))
-              ) : (
-                <p>No reviews available</p>
-              )}
-            </div>
-          </div>
-        )}
-
         <div className={styles.levels}>
           {teacher.levels?.length > 0 ? (
             teacher.levels.map((level, index) => (
@@ -106,11 +88,12 @@ const TeacherCard = ({ teacher, selectedLevel, onFavoriteUpdate }) => {
           )}
         </div>
 
-        {/* ✅ Додано кнопку "Book trial lesson" */}
-        {expanded && (
-          <button className={styles.bookButton}>Book trial lesson</button>
-        )}
+        <button className={styles.bookButton} onClick={() => setIsModalOpen(true)}>
+          Book trial lesson
+        </button>
       </div>
+
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} teacher={teacher} />
     </div>
   );
 };
