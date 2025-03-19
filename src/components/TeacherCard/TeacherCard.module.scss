@@ -6,7 +6,7 @@
     margin-bottom: 16px;
     width: 1000px;
   padding: 16px 48px;
-  margin-top: 10px;
+ 
   
   
   }
@@ -133,12 +133,12 @@
 }
 
 .heartIcon {
-    width: 24px; /* або будь-який інший розмір */
+    width: 24px;
     height: 24px;
     transition: filter 0.3s ease-in-out;
 }
 
-/* При активному стані змінюємо колір */
+
 .filled {
   filter: brightness(0) saturate(100%) invert(69%) sepia(92%) saturate(620%) hue-rotate(5deg) brightness(99%) contrast(99%);
 }

@@ -9,6 +9,8 @@
     align-items: center;
     justify-content: center;
     z-index: 1000;
+    gap: 20px;
+    
   }
   
   .modal {
@@ -18,6 +20,8 @@
     width: 400px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     position: relative;
+   max-width: 600px;
+    max-height: 972px;
     
   }
   
@@ -32,7 +36,7 @@
   }
   
   h2 {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
   }
   
   .teacherInfo {
@@ -42,6 +46,7 @@
   }
   
   .avatar {
+    margin-top: 20px;
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -49,6 +54,7 @@
   }
   
   .teacherLabel {
+    margin-top: 20px;
     font-size: 14px;
     color: gray;
   }
@@ -56,7 +62,7 @@
   .form {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 20px;
   }
   
   .label {
@@ -86,9 +92,9 @@
   }
   
   .bookButton {
-    background-color: #fbbc04;
+    background-color: #f4c550;
     border: none;
-    color: white;
+    color: #121417;
     font-size: 16px;
     font-weight: bold;
     padding: 12px;

@@ -1,21 +1,25 @@
 .pageContainer {
     position: relative;
+    
   }
   
   .headerContainer {
-    position: fixed; 
+    max-width: 1440px;
+    min-width: 1440px;
+    position: static; 
     top: 0;
     left: 0;
     width: 100%;
     background: rgb(246, 245, 244);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    z-index: 10; // збільшено для гарантії, що контент під низ не заїде
+    z-index: 10; 
   }
-  
   .contentContainer {
-    padding-top: 220px; // Спробуй саме це значення, якщо шапка висока (Header + Filters)
-    overflow-y: visible;
+    min-height: 500px; 
     position: relative;
-    z-index: 1; // переконайся, що він менший ніж у headerContainer
-  }
+    z-index: 1;
+}
+
+
+
   

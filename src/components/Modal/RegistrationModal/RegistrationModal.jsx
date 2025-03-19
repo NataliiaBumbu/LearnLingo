@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom"; // ✅ Додано для навігації
+import { useNavigate } from "react-router-dom"; 
 import { registerUser } from "../../../services/authService";
 import styles from "./RegistrationModal.module.scss";
 import Icon1 from "../../../assets/not-visible-interface.svg";
@@ -18,7 +18,7 @@ const schema = yup.object().shape({
 const RegistrationModal = ({ isOpen, onClose }) => {
   const { register, handleSubmit, formState: { errors } } = useForm({ resolver: yupResolver(schema) });
   const [showPassword, setShowPassword] = useState(false);
-  const navigate = useNavigate(); // ✅ Додано useNavigate для редіректу
+  const navigate = useNavigate(); 
 
   if (!isOpen) return null;
 
@@ -32,7 +32,7 @@ const RegistrationModal = ({ isOpen, onClose }) => {
         <form onSubmit={handleSubmit(async (data) => {
           try {
             await registerUser(data.email, data.password);
-            navigate("/teachers"); // ✅ Перенаправлення на сторінку викладачів
+            navigate("/teachers"); 
             onClose();
           } catch (error) {
             console.error("Registration error:", error.message);

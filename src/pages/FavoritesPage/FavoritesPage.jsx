@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { auth, getFavoriteTeachers } from "../../services/firebase";
 import TeacherCard from "../../components/TeacherCard/TeacherCard";
-import styles from "./FavoritesPage.module.scss";
 import Header from "../../components/Header/Header";
+import styles from "./FavoritesPage.module.scss";
 
 const FavoritesPage = () => {
   const [user, setUser] = useState(null);
@@ -16,50 +16,53 @@ const FavoritesPage = () => {
     return () => unsubscribe();
   }, []);
 
-  useEffect(() => {
-    const fetchFavorites = async () => {
-      if (user) {
-        const favorites = await getFavoriteTeachers(user.uid);
-        console.log("📌 Отримані улюблені викладачі:", favorites);
-        
-        // Оновлюємо список викладачів із гарантованим experience
-        const updatedFavorites = favorites.map((teacher) => ({
-          ...teacher,
-          experience:
-            Array.isArray(teacher.experience)
-              ? teacher.experience.join(" ")
-              : teacher.experience || "No experience provided",
-        }));
+  
+  const fetchFavorites = useCallback(async () => {
+    if (!user) return;
+    
+    try {
+      const favorites = await getFavoriteTeachers(user.uid);
+      console.log("📌 Отримані улюблені викладачі:", favorites);
 
-        setFavoriteTeachers(updatedFavorites);
-      }
-    };
+      const updatedFavorites = favorites.map((teacher) => ({
+        ...teacher,
+        experience: Array.isArray(teacher.experience)
+          ? teacher.experience.join(" ")
+          : teacher.experience || "No experience provided",
+      }));
 
-    fetchFavorites();
+      setFavoriteTeachers(updatedFavorites);
+    } catch (error) {
+      console.error("❌ Помилка отримання улюблених викладачів:", error);
+    }
   }, [user]);
 
+  
+  useEffect(() => {
+    fetchFavorites();
+  }, [fetchFavorites]);
+
+  
   const handleFavoriteUpdate = async () => {
-    if (user) {
-      const favorites = await getFavoriteTeachers(user.uid);
-      setFavoriteTeachers(favorites);
-    }
+    await fetchFavorites();
   };
 
   return (
-    
-    <div className={styles.container}>
-      <Header />
-      {favoriteTeachers.length > 0 ? (
-        favoriteTeachers.map((teacher) => (
-          <TeacherCard
-            key={teacher.id}
-            teacher={teacher} // Передаємо дані, які вже відформатовані
-            onFavoriteUpdate={handleFavoriteUpdate}
-          />
-        ))
-      ) : (
-      ""
-      )}
+    <div className={styles.page}>
+      <Header className={styles.header} /> 
+      <div className={styles.content}>
+        {favoriteTeachers.length > 0 ? (
+          favoriteTeachers.map((teacher) => (
+            <TeacherCard
+              key={teacher.id}
+              teacher={teacher}
+              onFavoriteUpdate={handleFavoriteUpdate}
+            />
+          ))
+        ) : (
+          <p>Loading...</p>
+        )}
+      </div>
     </div>
   );
 };

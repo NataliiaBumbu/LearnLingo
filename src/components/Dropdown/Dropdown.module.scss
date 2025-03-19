@@ -58,10 +58,10 @@
     background: #f1f1f1;
   }
   &.selected {
-    border: none !important; // Видаляє бордер
+    border: none !important; 
     outline: none;
     background: none;
-    color: #121417 !important; // Темний колір тексту
+    color: #121417 !important;
     font-weight: 500px;
 
     &:hover {
@@ -73,7 +73,7 @@
   display: inline-block;
   width: 20px;
   height: 20px;
-  background-image: url("../../assets/path-to-your-icon.svg"); // Шлях до кастомної стрілки
+  background-image: url("../../assets/path-to-your-icon.svg"); 
   background-size: contain;
   background-repeat: no-repeat;
   transition: transform 0.3s ease;

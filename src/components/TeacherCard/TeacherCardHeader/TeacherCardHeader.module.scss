@@ -6,13 +6,13 @@
   
   }
   
-  /* Блок з ім'ям та мовами */
+ 
   .left {
     display: flex;
     flex-direction: column;
     justify-content: center;
     min-width: 160px;
-    padding-left: 25px; /* Фіксована ширина блоку */
+    padding-left: 25px; 
   }
   
   .languagesTitle {
@@ -31,9 +31,9 @@
     color: #5a5a5a;
   }
   
-  /* Блок з інформацією про уроки */
+
   .right {
-    flex: 1; /* Займає весь доступний простір */
+    flex: 1; 
   }
   
   .infoBlock {

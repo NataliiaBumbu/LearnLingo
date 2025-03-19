@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useNavigate } from "react-router-dom"; // ✅ Додано для навігації
+import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 
 import styles from "./LoginModal.module.scss";
@@ -14,9 +14,9 @@ const schema = yup.object().shape({
 
 const LoginModal = ({ isOpen, onClose }) => {
   const { register, handleSubmit, formState: { errors } } = useForm({ resolver: yupResolver(schema) });
-  const navigate = useNavigate(); // ✅ Додано useNavigate для редіректу
+  const navigate = useNavigate();
 
-  // Закриття по Escape
+
   useEffect(() => {
     if (!isOpen) return;
 
@@ -31,7 +31,7 @@ const LoginModal = ({ isOpen, onClose }) => {
   const onSubmit = async (data) => {
     try {
       await loginUser(data.email, data.password);
-      navigate("/teachers"); // ✅ Перенаправлення на сторінку викладачів
+      navigate("/teachers"); 
       onClose();
     } catch (error) {
       console.error("Login failed:", error);

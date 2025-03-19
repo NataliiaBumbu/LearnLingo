@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import { auth } from "../../services/firebase";
+import { signOut } from "firebase/auth";
 import styles from "./Header.module.scss";
 import Logo from "../Logo/Logo";
 import logInIcon1x from "../../assets/log-in-01.png";
@@ -9,11 +11,21 @@ import { Link } from "react-router-dom";
 
 const Header = () => {
   const [modal, setModal] = useState(null); // 'login' | 'register' | null
+  const [user, setUser] = useState(null); // Стан користувача
+
+  // Відстеження авторизації користувача
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((authUser) => {
+      setUser(authUser); // Оновлюємо стан користувача
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   // Закриття по Escape
   useEffect(() => {
     if (!modal) return;
-    
+
     const handleEscape = (e) => {
       if (e.key === "Escape") setModal(null);
     };
@@ -24,37 +36,57 @@ const Header = () => {
 
   const toggleModal = (type) => setModal((prev) => (prev === type ? null : type));
 
+  // Функція для виходу
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+    } catch (error) {
+      console.error("Помилка при виході:", error);
+    }
+  };
+
   return (
     <header className={styles.header}>
-      
       <div className={styles.logoContainer}>
         <Logo />
       </div>
 
       <nav className={styles.nav}>
-      <Link to="/" className={styles.navLink}>Home</Link>
-      <Link to="/teachers" className={styles.navLink}>Teachers</Link>
-      <Link to="/favorites" className={styles.navLink}>Favorites</Link>
-    </nav>
+        <Link to="/" className={styles.navLink}>Home</Link>
+        <Link to="/teachers" className={styles.navLink}>Teachers</Link>
+        <Link to="/favorites" className={styles.navLink}>Favorites</Link>
+      </nav>
 
       <div className={styles.buttonContainer}>
-        <button className={styles.loginButton} onClick={() => toggleModal("login")}>
-          <img 
-            src={logInIcon1x} 
-            srcSet={`${logInIcon1x} 1x, ${logInIcon2x} 2x`} 
-            alt="Log in" 
-            className={styles.icon} 
-          />
-          Log in
-        </button>
-        <button className={styles.registerButton} onClick={() => toggleModal("register")}>
-          Registration
-        </button>
+        {user ? (
+          
+          <button className={styles.logoutButton} onClick={handleLogout}>
+            <img 
+                src={logInIcon1x} 
+                srcSet={`${logInIcon1x} 1x, ${logInIcon2x} 2x`} 
+                alt="Log in" 
+                className={styles.icon} 
+              />
+            Log out
+          </button>
+        ) : (
+          <>
+            <button className={styles.loginButton} onClick={() => toggleModal("login")}>
+              <img 
+                src={logInIcon1x} 
+                srcSet={`${logInIcon1x} 1x, ${logInIcon2x} 2x`} 
+                alt="Log in" 
+                className={styles.icon} 
+              />
+              Log in
+            </button>
+            <button className={styles.registerButton} onClick={() => toggleModal("register")}>
+              Registration
+            </button>
+          </>
+        )}
       </div>
-    
-      
 
-      {/* Модальні вікна */}
       <LoginModal isOpen={modal === "login"} onClose={() => setModal(null)} />
       <RegistrationModal isOpen={modal === "register"} onClose={() => setModal(null)} />
     </header>
