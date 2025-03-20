@@ -61,8 +61,16 @@
   
   .teacherLabel {
     margin-top: 20px;
-    font-size: 14px;
-    color: gray;
+    font-size: 12px;
+    font-weight: 500px;
+    line-height: 16px;
+    color: #8A8A89;
+  }
+  .teacherLabelname {
+    font-size: 16px;
+    font-weight: 500px;
+    line-height: 24px;
+    color: #121417;
   }
   
   .form {
@@ -78,6 +86,21 @@
       line-height: 32px !important;
       color: #121417;
   }
+
+  .teacherTitile {
+    font-weight: 500px;
+    font-size: 40px;
+    line-height: 48px;
+    color: #121417;
+  }
+
+  .teacherTitileP {
+    font-weight: 400px;
+    font-size: 16px;
+    line-height: 22px;
+    color: #121417;
+  }
+  
   
   .radioGroup {
     display: flex;

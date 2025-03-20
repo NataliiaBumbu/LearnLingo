@@ -8,14 +8,14 @@ const Modal = ({ isOpen, onClose, teacher }) => {
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
         <button className={styles.closeButton} onClick={onClose}>&times;</button>
 
-        <h2>Book trial lesson</h2>
-        <p>Our experienced tutor will assess your current language level and tailor the lesson to your needs.</p>
+        <h2 className={styles.teacherTitile}>Book trial lesson</h2>
+        <p className={styles.teacherTitileP}>Our experienced tutor will assess your current language level and tailor the lesson to your needs.</p>
 
         <div className={styles.teacherInfo}>
           <img src={teacher.avatar_url || "https://via.placeholder.com/40"} alt={teacher.name} className={styles.avatar} />
           <div>
             <p className={styles.teacherLabel}>Your teacher</p>
-            <strong>{teacher.name}</strong>
+            <strong className={styles.teacherLabelname}>{teacher.name}</strong>
           </div>
         </div>
 
