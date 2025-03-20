@@ -5,15 +5,19 @@ import { getTeachers } from "../../services/firebase";
 
 const TeachersList = ({ filters, visibleCount, onLoadMore }) => {
   const [teachers, setTeachers] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const bottomRef = useRef(null);
 
   useEffect(() => {
     const fetchTeachers = async () => {
-      setLoading(true);
-      const data = await getTeachers();
-      setTeachers(data);
-      setLoading(false);
+      try {
+        const data = await getTeachers();
+        setTeachers(data);
+      } catch (error) {
+        console.error("❌ Помилка отримання викладачів:", error);
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchTeachers();
@@ -22,14 +26,11 @@ const TeachersList = ({ filters, visibleCount, onLoadMore }) => {
   const filteredTeachers = useMemo(() => {
     return teachers.filter((teacher) => {
       if (!teacher) return false;
-      const maxPrice = parseInt(filters.price, 10);
+
+      const maxPrice = parseInt(filters.price, 10) || Infinity;
       const matchesPrice = teacher.price_per_hour <= maxPrice;
-      const matchesLevel = filters.level
-        ? teacher.levels?.includes(filters.level)
-        : true;
-      const matchesLanguage = filters.language
-        ? teacher.languages?.includes(filters.language)
-        : true;
+      const matchesLevel = filters.level ? teacher.levels?.includes(filters.level) : true;
+      const matchesLanguage = filters.language ? teacher.languages?.includes(filters.language) : true;
 
       return matchesPrice && matchesLevel && matchesLanguage;
     });
@@ -37,22 +38,14 @@ const TeachersList = ({ filters, visibleCount, onLoadMore }) => {
 
   const handleLoadMore = () => {
     onLoadMore();
-    setTimeout(() => {
-      bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-    }, 100);
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
     <div className={styles.container}>
-      {filteredTeachers.slice(0, visibleCount).map((teacher) => (
-        <TeacherCard
-          key={teacher.id}
-          teacher={teacher}
-          selectedLevel={filters.level}
-        />
+      {!loading && filteredTeachers.slice(0, visibleCount).map((teacher) => (
+        <TeacherCard key={teacher.id} teacher={teacher} selectedLevel={filters.level} />
       ))}
-
-      {loading && <p>Loading...</p>}
 
       {!loading && visibleCount < filteredTeachers.length && (
         <button className={styles.loadMore} onClick={handleLoadMore}>
@@ -60,7 +53,7 @@ const TeachersList = ({ filters, visibleCount, onLoadMore }) => {
         </button>
       )}
 
-      <div ref={bottomRef} style={{ width: '100%', height: '1px' }} />
+      <div ref={bottomRef} style={{ width: "100%", height: "1px" }} />
     </div>
   );
 };
