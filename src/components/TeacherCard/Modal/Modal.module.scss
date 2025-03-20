@@ -12,6 +12,12 @@
     gap: 20px;
     
   }
+  input::placeholder {
+    font-weight: 400px;
+    font-size: 16px;
+    line-height: 22px;
+    color: #121417;
+  }
   
   .modal {
     background: #fff;
@@ -65,16 +71,23 @@
     gap: 20px;
   }
   
-  .label {
-    font-size: 16px;
-    font-weight: bold;
-    margin-bottom: 5px;
+  .labelForm {
+
+    font-weight: 500px !important;
+      font-size: 24px !important;
+      line-height: 32px !important;
+      color: #121417;
   }
   
   .radioGroup {
     display: flex;
     flex-direction: column;
     gap: 10px;
+      font-weight: 400px;
+      font-size: 16px;
+      line-height: 22px;
+      color: #121417;
+    
   }
   
   .radioLabel {

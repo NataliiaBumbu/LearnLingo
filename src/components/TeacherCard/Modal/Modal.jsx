@@ -20,7 +20,7 @@ const Modal = ({ isOpen, onClose, teacher }) => {
         </div>
 
         <form className={styles.form}>
-          <p className={styles.label}>Why do you want to learn {teacher.languages?.join(", ")}?</p>
+          <p className={styles.labelForm}>Why do you want to learn {teacher.languages?.join(", ")}?</p>
           <div className={styles.radioGroup}>
             {["Career and business", "Lessons for kids", "Living abroad", "Exams and coursework", "Culture, travel, or hobby"].map((option, index) => (
               <label key={index} className={styles.radioLabel}>
