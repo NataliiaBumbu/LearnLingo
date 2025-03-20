@@ -39,6 +39,11 @@
   .details {
     padding-top: 12px;
     padding-left: 140px;
+    font-size: 16px;
+    font-weight: 500px;
+    line-height: 24px;
+    color: #8a8a89;
+    
   }
   
   .levels {
@@ -46,6 +51,10 @@
   }
   
   .level {
+    font-weight: 500px;
+    font-size: 14px;
+    line-height: 16px;
+    color: #121417;
     border: 1px solid #8A8A89;
     border-radius: 35px;
     padding: 6px 12px;
@@ -73,6 +82,7 @@
     margin-bottom: 16px;
     width: 232px;
     height: 60px;
+    line-height: 28px;
 
   }
   
@@ -91,6 +101,26 @@
   }
 .underlinedText {
   text-decoration: underline;
+  font-size: 16px;
+    font-weight: 500px;
+    line-height: 24px;
+    color: #121417;
+    margin-bottom: 2px;
+}
+.underlinedTextet {
+  font-weight: 500px;
+    line-height: 24px;
+    font-size: 16px;
+    color: #121417;
+}
+.extraDetailsis {
+  font-weight: 400px;
+}
+.extraDetails{
+  font-weight: 500px;
+font-size: 16px;
+  line-height: 24px;
+  color: #121417;
 }
   .reviews {
     margin-top: 12px;

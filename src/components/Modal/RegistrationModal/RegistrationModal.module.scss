@@ -36,6 +36,7 @@
   .title {
     font-size: 40px;
     font-weight: 500px;
+    line-height: 48px;
     margin-top: 64px;
     margin-left: 64px;
   color: #121417;
@@ -45,24 +46,33 @@
   }
   
   .subtitle {
-    font-size: 14px;
-    color: #666;
+    font-weight: 400px;
+    font-size: 16px;
+    line-height: 22px;
+    color: #121417;
     margin-bottom: 20px;
     margin-left: 64px;
     margin-right: 64px;
   }
   
   .input {
-width: 438px;
-height: 54px;
-    padding: 10px;
-    margin-bottom: 14px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
+    min-width: 438px;
+    min-height: 54px;
     margin-left: 64px;
-    margin-right: 64px;
+   padding-left: 18px;
+    margin-bottom: 18px;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    font-size: 16px;
+    padding-right: 64px;
+   
   
+  }
+  input::placeholder {
+    font-weight: 400px;
+    font-size: 16px;
+    line-height: 22px;
+    color: #121417;
   }
   
   .close {
@@ -85,7 +95,7 @@ height: 54px;
     position: absolute;
     justify-content: center;
     right: 60px;
-    top: 50%;
+    top: 30px;
     transform: translateY(-50%);
     cursor: pointer;
     width: 20px;
@@ -109,8 +119,9 @@ height: 54px;
     padding: 18px;
     background-color: #f4c550;
     color: #121417;
-    font-size: 16px;
-    font-weight: bold;
+    font-size: 18px;
+    font-weight: 700px;
+    line-height: 28px;
     border: none;
     border-radius: 5px;
     cursor: pointer;

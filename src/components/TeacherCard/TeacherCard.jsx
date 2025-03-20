@@ -79,10 +79,10 @@ const TeacherCard = ({ teacher, selectedLevel, onFavoriteUpdate }) => {
           Speaks: <strong className={styles.underlinedText}>{Array.isArray(teacher.languages) ? teacher.languages.join(", ") : "Unknown"}</strong>
         </p>
         <p>
-          Lesson Info: <strong>{teacher.lesson_info || "No info available"}</strong>
+          Lesson Info: <strong className={styles.underlinedTextet}>{teacher.lesson_info || "No info available"}</strong>
         </p>
         <p>
-          Conditions: <strong>{Array.isArray(teacher.conditions) ? teacher.conditions.join(" ") : "No conditions provided"}</strong>
+          Conditions: <strong className={styles.underlinedTextet}>{Array.isArray(teacher.conditions) ? teacher.conditions.join(" ") : "No conditions provided"}</strong>
         </p>
         <button className={styles.readMore} onClick={() => setExpanded((prev) => !prev)}>
           {expanded ? "" : "Read more"}
@@ -90,7 +90,7 @@ const TeacherCard = ({ teacher, selectedLevel, onFavoriteUpdate }) => {
 
         {expanded && (
           <div className={styles.extraDetails}>
-            <p>{teacher.experience ? (Array.isArray(teacher.experience) ? teacher.experience.join(" ") : teacher.experience) : "No experience provided"}</p>
+            <p className={styles.extraDetailsis}>{teacher.experience ? (Array.isArray(teacher.experience) ? teacher.experience.join(" ") : teacher.experience) : "No experience provided"}</p>
 
             <div className={styles.reviews}>
               {teacher.reviews && teacher.reviews.length > 0 ? (
@@ -112,7 +112,7 @@ const TeacherCard = ({ teacher, selectedLevel, onFavoriteUpdate }) => {
           {teacher.levels?.length > 0 ? (
             teacher.levels.map((level, index) => (
               <span key={index} className={`${styles.level} ${selectedLevel === level ? styles.selectedLevel : ""}`}>
-                {level}
+                 {`#${level}`}
               </span>
             ))
           ) : (

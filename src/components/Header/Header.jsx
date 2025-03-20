@@ -52,10 +52,12 @@ const Header = () => {
       </div>
 
       <nav className={styles.nav}>
-        <Link to="/" className={styles.navLink}>Home</Link>
-        <Link to="/teachers" className={styles.navLink}>Teachers</Link>
-        <Link to="/favorites" className={styles.navLink}>Favorites</Link>
-      </nav>
+  <Link to="/" className={styles.navLink}>Home</Link>
+  <Link to="/teachers" className={styles.navLink}>Teachers</Link>
+  {user && ( 
+    <Link to="/favorites" className={styles.navLink}>Favorites</Link>
+  )}
+</nav>
 
       <div className={styles.buttonContainer}>
         {user ? (
