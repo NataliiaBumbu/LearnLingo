@@ -13,12 +13,13 @@ const Filters = ({ onFilterChange }) => {
     setFilters((prevFilters) => {
       const updatedFilters = { ...prevFilters, [name]: value };
       onFilterChange(updatedFilters);
+      document.activeElement.blur(); // Відключаємо фокус після вибору
       return updatedFilters;
     });
   };
 
   return (
-    <div className={styles.filters}>
+    <div className={styles.filters} tabIndex="-1"> {/* Додаємо tabIndex */}
       <Dropdown
         label="Languages"
         options={["French", "English", "German", "Ukrainian", "Polish"]}

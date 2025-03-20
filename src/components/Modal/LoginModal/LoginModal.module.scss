@@ -13,7 +13,8 @@
   }
   
   .modal {
-    
+    position: relative;
+    z-index: 1000;
     background: white;
     width: 400px;
     padding: 30px;

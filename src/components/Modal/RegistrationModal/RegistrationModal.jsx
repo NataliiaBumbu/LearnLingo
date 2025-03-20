@@ -1,8 +1,8 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom"; 
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { registerUser } from "../../../services/authService";
 import styles from "./RegistrationModal.module.scss";
 import Icon1 from "../../../assets/not-visible-interface.svg";
@@ -16,49 +16,78 @@ const schema = yup.object().shape({
 });
 
 const RegistrationModal = ({ isOpen, onClose }) => {
-  const { register, handleSubmit, formState: { errors } } = useForm({ resolver: yupResolver(schema) });
+  const { register, handleSubmit, formState: { errors }, reset } = useForm({ resolver: yupResolver(schema) });
   const [showPassword, setShowPassword] = useState(false);
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
+
+  // При відкритті модалки очищуємо фокус, щоб уникнути підсвічування фільтрів
+  useEffect(() => {
+    if (isOpen) {
+      setTimeout(() => {
+        document.activeElement.blur();
+      }, 10);
+    }
+  }, [isOpen]);
+
+  // Закриття модалки по Escape
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleEscape = (e) => {
+      if (e.key === "Escape") onClose();
+    };
+
+    window.addEventListener("keydown", handleEscape);
+    return () => window.removeEventListener("keydown", handleEscape);
+  }, [isOpen, onClose]);
+
+  // Обробка реєстрації
+  const onSubmit = async (data) => {
+    try {
+      await registerUser(data.email, data.password);
+      reset(); // Очищення форми після успішної реєстрації
+      navigate("/teachers");
+      onClose();
+    } catch (error) {
+      console.error("❌ Registration error:", error.message);
+    }
+  };
 
   if (!isOpen) return null;
 
   return (
-    <div className={styles.overlay} onClick={onClose} onKeyDown={(e) => e.key === "Escape" && onClose()} tabIndex={0}>
+    <div className={styles.overlay} onClick={onClose} tabIndex={0}>
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
         <button className={styles.close} onClick={onClose}>&times;</button>
         <h2 className={styles.title}>Registration</h2>
-        <p className={styles.subtitle}>Thank you for your interest in our platform! In order to register, we need some information. Please provide us with the following information
+        <p className={styles.subtitle}>
+          Thank you for your interest in our platform! Please provide us with the following information.
         </p>
-        <form onSubmit={handleSubmit(async (data) => {
-          try {
-            await registerUser(data.email, data.password);
-            navigate("/teachers"); 
-            onClose();
-          } catch (error) {
-            console.error("Registration error:", error.message);
-          }
-        })}>
-                    <p className={styles.error}>{errors.name?.message}</p>
 
-          <input type="text" placeholder="Name" {...register("name")} className={styles.input} />
-          <p className={styles.error}>{errors.email?.message}</p>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          {/* Name */}
+          <input type="text" placeholder="Name" {...register("name")} className={styles.input} autoFocus />
+          {errors.name && <p className={styles.error}>{errors.name.message}</p>}
+
+          {/* Email */}
           <input type="email" placeholder="Email" {...register("email")} className={styles.input} />
+          {errors.email && <p className={styles.error}>{errors.email.message}</p>}
 
+          {/* Password */}
           <div className={styles.passwordContainer}>
-          <p className={styles.error}>{errors.password?.message}</p>
-  
             <input
               type={showPassword ? "text" : "password"}
               placeholder="Password"
               {...register("password")}
               className={styles.input}
             />
-<span className={styles.eyeIcon} onClick={() => setShowPassword(!showPassword)}>
-  <img src={showPassword ? Icon2 : Icon1} alt="Toggle password visibility" />
-</span>
-
+            <span className={styles.eyeIcon} onClick={() => setShowPassword(!showPassword)}>
+              <img src={showPassword ? Icon2 : Icon1} alt="Toggle password visibility" />
+            </span>
           </div>
+          {errors.password && <p className={styles.error}>{errors.password.message}</p>}
 
+          {/* Submit Button */}
           <button type="submit" className={styles.button}>Sign Up</button>
         </form>
       </div>
