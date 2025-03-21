@@ -10,6 +10,15 @@ dd,
 dl {
 	margin: 0;
 }
+
+html, body {
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	justify-content: center;
+  }
+  
 html {
 	scroll-behavior: smooth;
   }
@@ -24,6 +33,12 @@ ul {
 	padding: 0;
 	list-style: none;
 }
+body {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start; 
+	min-height: 100vh;
+  }
 
 a {
 	color: currentColor;

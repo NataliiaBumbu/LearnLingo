@@ -1,11 +1,19 @@
 .hero {
-  margin: 0px 64px;
-  display: flex;
-  align-items: center;
+  
+  // margin: 0px 64px;
+  // display: flex;
+  // align-items: center;
   justify-content: space-between;
   gap: 20px;
-  height: 530px;
-  max-width: 1440px;
+  // height: 530px;
+
+  margin: 0 auto; /* Центрування */
+ padding-bottom: 20px;
+  display: flex;
+  align-items: center;
+padding-left: 64px;
+padding-right: 64px;
+
  
 
  

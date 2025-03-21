@@ -1,8 +1,12 @@
 .statisticWrapper {
-    display: flex;
-    justify-content: center;
-    margin-top: 60px; 
-    padding: 0 64px;
+  max-width: 1440px;
+  min-width: 1200px;
+  width: 100%;
+  margin: 0 auto; 
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
      
   }
   
