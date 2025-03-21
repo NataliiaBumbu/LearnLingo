@@ -8,7 +8,6 @@ import styles from "./RegistrationModal.module.scss";
 import Icon1 from "../../../assets/not-visible-interface.svg";
 import Icon2 from "../../../assets/eye-visible-outlined.svg";
 
-// Валідація форми
 const schema = yup.object().shape({
   name: yup.string().required("Name is required"),
   email: yup.string().email("Invalid email").required("Email is required"),
@@ -20,7 +19,6 @@ const RegistrationModal = ({ isOpen, onClose }) => {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
-  // При відкритті модалки очищуємо фокус, щоб уникнути підсвічування фільтрів
   useEffect(() => {
     if (isOpen) {
       setTimeout(() => {
@@ -29,7 +27,7 @@ const RegistrationModal = ({ isOpen, onClose }) => {
     }
   }, [isOpen]);
 
-  // Закриття модалки по Escape
+
   useEffect(() => {
     if (!isOpen) return;
 
@@ -41,11 +39,11 @@ const RegistrationModal = ({ isOpen, onClose }) => {
     return () => window.removeEventListener("keydown", handleEscape);
   }, [isOpen, onClose]);
 
-  // Обробка реєстрації
+  
   const onSubmit = async (data) => {
     try {
       await registerUser(data.email, data.password);
-      reset(); // Очищення форми після успішної реєстрації
+      reset(); 
       navigate("/teachers");
       onClose();
     } catch (error) {
@@ -65,15 +63,15 @@ const RegistrationModal = ({ isOpen, onClose }) => {
         </p>
 
         <form onSubmit={handleSubmit(onSubmit)}>
-          {/* Name */}
+        
           <input type="text" placeholder="Name" {...register("name")} className={styles.input} autoFocus />
           {errors.name && <p className={styles.error}>{errors.name.message}</p>}
 
-          {/* Email */}
+         
           <input type="email" placeholder="Email" {...register("email")} className={styles.input} />
           {errors.email && <p className={styles.error}>{errors.email.message}</p>}
 
-          {/* Password */}
+        
           <div className={styles.passwordContainer}>
             <input
               type={showPassword ? "text" : "password"}
@@ -87,7 +85,6 @@ const RegistrationModal = ({ isOpen, onClose }) => {
           </div>
           {errors.password && <p className={styles.error}>{errors.password.message}</p>}
 
-          {/* Submit Button */}
           <button type="submit" className={styles.button}>Sign Up</button>
         </form>
       </div>

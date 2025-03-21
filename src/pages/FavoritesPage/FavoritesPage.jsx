@@ -22,7 +22,6 @@ const FavoritesPage = () => {
     
     try {
       const favorites = await getFavoriteTeachers(user.uid);
-      console.log("📌 Отримані улюблені викладачі:", favorites);
 
       const updatedFavorites = favorites.map((teacher) => ({
         ...teacher,

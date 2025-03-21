@@ -14,7 +14,7 @@ const TeachersPage = () => {
 
   const [visibleCount, setVisibleCount] = useState(4);
   const [teachers, setTeachers] = useState([]); 
-  const [isLoading, setIsLoading] = useState(true); // Початково true
+  const [isLoading, setIsLoading] = useState(true); 
   const bottomRef = useRef(null);
 
   useEffect(() => {
@@ -22,13 +22,13 @@ const TeachersPage = () => {
       setIsLoading(true);
       try {
         const data = await getTeachers();
-        if (data.length > 0) {  // Гарантуємо, що дані є
+        if (data.length > 0) {  
           setTeachers(data);
         }
       } catch (error) {
         console.error("❌ Помилка отримання викладачів:", error);
       } finally {
-        setTimeout(() => setIsLoading(false), 500); // Невелика затримка, щоб уникнути різкого зникнення
+        setTimeout(() => setIsLoading(false), 500); 
       }
     };
 

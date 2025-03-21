@@ -32,9 +32,8 @@ export const addTeachersToDatabase = async (teachers) => {
 
   try {
     await update(ref(db), updates);
-    console.log("Teachers added successfully!");
   } catch (error) {
-    console.error("Error adding teachers:", error);
+    // Обробка помилки без виводу в консоль
   }
 };
 
@@ -45,19 +44,14 @@ export const addTeachersToDatabase = async (teachers) => {
 export const getTeachers = async () => {
   try {
     const snapshot = await get(ref(db, "teachers"));
-    console.log("📌 Отримані всі викладачі:", snapshot.val()); // Лог для перевірки
     if (!snapshot.exists()) {
-      console.warn("❌ Викладачів у Firebase немає!");
       return [];
     }
     return Object.entries(snapshot.val()).map(([id, teacher]) => ({ id, ...teacher }));
   } catch (error) {
-    console.error("❌ Помилка отримання викладачів:", error);
     return [];
   }
 };
-
-
 
 /**
  * 🔹 Перемикає стан "обраного" викладача (додає або видаляє)
@@ -89,10 +83,9 @@ export const toggleFavorite = async (userId, teacher) => {
       });
     }
   } catch (error) {
-    console.error("❌ Помилка зміни статусу улюбленого викладача:", error);
+    // Обробка помилки без виводу в консоль
   }
 };
-
 
 /**
  * 🔹 Перевіряє, чи викладач у списку "обраних"
@@ -106,7 +99,6 @@ export const isFavorite = async (userId, teacherId) => {
     const snapshot = await get(userRef);
     return snapshot.exists();
   } catch (error) {
-    console.error("❌ Помилка перевірки обраного викладача:", error);
     return false;
   }
 };
@@ -129,7 +121,6 @@ export const getFavoriteTeachers = async (userId) => {
       avatar_url: teacher.avatar_url || "https://via.placeholder.com/100", // ✅ Плейсхолдер
     }));
   } catch (error) {
-    console.error("❌ Помилка отримання улюблених викладачів:", error);
     return [];
   }
 };

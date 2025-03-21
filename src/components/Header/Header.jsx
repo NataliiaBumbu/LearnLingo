@@ -10,19 +10,17 @@ import LoginModal from "../Modal/LoginModal/LoginModal";
 import { Link } from "react-router-dom";
 
 const Header = () => {
-  const [modal, setModal] = useState(null); // 'login' | 'register' | null
-  const [user, setUser] = useState(null); // Стан користувача
+  const [modal, setModal] = useState(null); 
+  const [user, setUser] = useState(null); 
 
-  // Відстеження авторизації користувача
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
-      setUser(authUser); // Оновлюємо стан користувача
+      setUser(authUser); 
     });
 
     return () => unsubscribe();
   }, []);
 
-  // Закриття по Escape
   useEffect(() => {
     if (!modal) return;
 
@@ -36,7 +34,6 @@ const Header = () => {
 
   const toggleModal = (type) => setModal((prev) => (prev === type ? null : type));
 
-  // Функція для виходу
   const handleLogout = async () => {
     try {
       await signOut(auth);
